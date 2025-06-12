@@ -1,2 +1,39 @@
 *.bkp
 *.drawio
+
+# Archivos compilados de Java
+*.class
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+__MACOSX/
+
+# Archivos temporales, respaldos, editores
+*.log
+*.tmp
+*.bak
+*.swp
+*~
+*.orig
+
+# NetBeans (configuración privada)
+nbproject/private/
+
+# Carpetas de compilación y distribución
+build/
+dist/
+
+# Config de IDEs
+.vscode/
+.idea/
+*.iml
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Variables de entorno
+.env
