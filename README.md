@@ -1,32 +1,64 @@
-# Videoclub-development
-A movie rental management system for a fictional video club inspired by the 1980s films, specializing in slasher, horror, and classic films. This project allows for the management of both movies and customers, offering registered users the ability to check movie availability, join waitlists for rented movies, and explore the most popular films in the catalog.
+# 🎞️ Videoclub-development
 
-Employees can also create and manage events and promotions to keep the system dynamic and engaging for users. This project is in development and currently in the design phase, with work on class diagrams and plans for integrating features like database management and user interfaces.
+A movie rental management system for a fictional 1980s-inspired video club, specializing in slasher, horror, and classic films. The project provides a complete platform for managing movies, customers, events, and promotions — with both a desktop and web interface designed for immersive and nostalgic experiences.
 
-**Features**
+Customers can explore the movie catalog, join waitlists, and mark favorites, while employees manage rentals, events, and apply special promotions. The system also integrates smart recommendations and clear AI-generated explanations to improve the user experience.
 
-**Movie Catalog Management**: Admins can add, edit, and remove movies from the system.
+> 🎬 **Slogan**: *Now Showing: Your Next Favourite Movie*
 
-**Customer Account Management**: Users can register, rent movies, and join waitlists for unavailable movies.
+---
 
-**Event & Promotions Management**: Employees can create and manage special events and promotions to boost engagement.
+## ✨ Features
 
-**Search & Filter**: Customers can explore movies by genre, popularity, or release year.
+- **🎥 Movie Catalog Management**  
+  Admins can add, edit, and remove movies, including metadata like genre, subgenre, and production details.
 
-**User-Friendly Interface**: Simple and intuitive UI for both customers and employees.
+- **👤 Customer Account Management**  
+  Customers can register, change passwords, rent available movies, and join waitlists for out-of-stock films.
 
+- **📅 Event & Promotion System**  
+  Employees can create and manage in-store events (e.g. *May the 4th*, *Halloween Specials*) and apply rental promotions.
 
-**Technologies used**
-	
-  •	JavaFX for the graphical user interface.
-	
-  •	MySQL for relational database management.
-	
-  •	Object-Oriented Design and Class Diagrams for system architecture.
-	
-  •	Java for backend logic and database interactions.
+- **🔍 Search & Filter**  
+  Browse films by genre, release year, popularity, or availability — with smart filtering and subgenre exploration.
 
-**Current status**
+- **💬 AI Integration**  
+  Intelligent explanations about account status, rental conditions, or system rules — powered by an AI text generation API.
 
-This project is currently in the design phase. Future work includes the integration of
-the database, development of the user interface, and implementation of movie rental functionalities.
+- **📧 Email Notifications**  
+  Customers receive confirmation and waitlist updates through email (via external mailing API).
+
+- **🌐 Dual Interface**  
+  - **Desktop App** (JavaFX) for employee operations.  
+  - **Web App** (HTML/CSS/JavaScript) for customer access.
+
+---
+
+## 🛠️ Technologies Used
+
+- **Java (21/23)** for backend logic and business rules  
+- **Spring Boot** for RESTful API development and user authentication  
+- **JavaFX** for desktop GUI (employee-side)  
+- **MySQL** for relational database management  
+- **HTML, CSS, JavaScript** for frontend customer web interface  
+- **Axios / Fetch** for client-server communication  
+- **SendGrid / Mailjet API** for email integration  
+- **OpenAI API or Gemini AI** for intelligent recommendations and explanations  
+- **Figma** for UX/UI prototyping and design
+
+---
+
+## 📈 Current Status
+
+This project is in **active development**.  
+Currently completed:
+- System use cases and class diagrams  
+- Early prototypes of the interfaces  
+- ER diagram and database design
+
+**Next Steps:**
+- Set up backend and connect to database  
+- Build secure login system with Spring Security  
+- Develop frontend web interface for customers  
+- Integrate APIs for email and AI support  
+- Finalize employee-side JavaFX functionality
