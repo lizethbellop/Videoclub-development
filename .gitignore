@@ -5,8 +5,7 @@
 # Archivos compilados de Java
 *.class
 
-# macOS
-.DS_Store
+# MacOS
 .AppleDouble
 .LSOverride
 __MACOSX/
@@ -20,16 +19,45 @@ __MACOSX/
 *.orig
 
 # NetBeans (configuración privada)
-nbproject/private/
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
 
 # Carpetas de compilación y distribución
 build/
 dist/
 
-# Config de IDEs
-.vscode/
+# Gradle
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# STS (Spring Tool Suite)
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+# IntelliJ IDEA
 .idea/
+*.iws
 *.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+# VS Code
+.vscode/
 
 # Windows
 Thumbs.db
