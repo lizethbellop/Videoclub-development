@@ -1,6 +1,7 @@
 *.bkp
 *.drawio
 *.mwb
+HELP.md
 
 # Archivos compilados de Java
 *.class
