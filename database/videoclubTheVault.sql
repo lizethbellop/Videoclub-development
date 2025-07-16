@@ -1,6 +1,13 @@
 CREATE DATABASE thevaultVideoclub;
 USE thevaultVideoclub;
 
+CREATE TABLE User (
+    idUser INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    role VARCHAR(50) NOT NULL
+);
+
 CREATE TABLE Film (
     idFilm INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(55) NOT NULL,
@@ -10,7 +17,8 @@ CREATE TABLE Film (
     premierYear INT NOT NULL,
     existingUnits INT,
     productionCompany VARCHAR(60) NOT NULL,
-    type ENUM('VHS', 'DVD') NOT NULL
+    format VARCHAR(255) NOT NULL,
+    imageurl VARCHAR(255) NULL
 );
 
 CREATE TABLE Purchase (
@@ -46,7 +54,9 @@ CREATE TABLE Client (
     email VARCHAR(100) NOT NULL,
     birthDate DATE NOT NULL,
     strike INT,
-    isAccountActive TINYINT NOT NULL DEFAULT 1
+    isAccountActive TINYINT NOT NULL DEFAULT 1,
+    idUser INT NOT NULL,
+    FOREIGN KEY (idUser) REFERENCES User(idUser)
 );
 
 CREATE TABLE Employee (
@@ -56,7 +66,9 @@ CREATE TABLE Employee (
     phone VARCHAR(10) NOT NULL,
     email VARCHAR(100) NOT NULL,
     birthDate DATE NOT NULL,
-    role VARCHAR(45) NOT NULL
+    role VARCHAR(45) NOT NULL,
+    idUser INT NOT NULL,
+    FOREIGN KEY (idUser) REFERENCES User(idUser)
 );
 
 CREATE TABLE Reservation (
@@ -108,47 +120,66 @@ CREATE TABLE Rental (
 
 -- Inserts
 
+-- User
+
+-- Employees
+
+INSERT INTO User (username, password, role)
+VALUES ('abennett', '$2a$12$mVV52qOqXRBXk48Oomu2d.w5NpU4/qPzBb7Oy4ZW0agzHrdNavCYu', 'employee');
+
+INSERT INTO User (username, password, role)
+VALUES ('lreed', '$2a$12$HD1.8jmXC8AGD0/M7Y3RfOtNZH.fg8oBfx.vp.2uyLpK6.ti7rPyS', 'employee');
+
+-- Clients
+
+INSERT INTO User (username, password, role)
+VALUES ('ecollins', '$2a$12$Tjzd4fl8zCcRKQ0ikHhnc.gJh9eftNGiAaJrCe88BiZw5.xdANv5C', 'client');
+
+INSERT INTO User (username, password, role)
+VALUES ('nanderson', '$2a$12$P0Gj5O/3ZVRE5te4dHinOOntKAUZj3CdLXiXRZ7ZJGDcd9CWC/Adq', 'client');
+
+
 -- Employee
     
-INSERT INTO Employee (name, lastName, phone, email, birthDate, role) 
-VALUES ('Ashley', 'Bennett', '5551234567', 'ashley.bennett@thevault.com', '1990-05-22', 'Manager');
+INSERT INTO Employee (name, lastName, phone, email, birthDate, role, idUser) 
+VALUES ('Ashley', 'Bennett', '5551234567', 'ashley.bennett@thevault.com', '1990-05-22', 'Manager', 1);
 
-INSERT INTO Employee (name, lastName, phone, email, birthDate, role) 
-VALUES ('Lucas', 'Reed', '5559876543', 'lucas.reed@thevault.com', '1985-11-10', 'Clerk');
+INSERT INTO Employee (name, lastName, phone, email, birthDate, role, idUser) 
+VALUES ('Lucas', 'Reed', '5559876543', 'lucas.reed@thevault.com', '1985-11-10', 'Clerk', 2);
 
 -- Clients
     
-INSERT INTO Client (name, lastName, phone, email, birthDate, strike, isAccountActive) 
-VALUES ('Emma', 'Collins', '5551112233', 'emma.collins@mail.com', '2002-07-15', 0, 1);
+INSERT INTO Client (name, lastName, phone, email, birthDate, strike, isAccountActive, idUser) 
+VALUES ('Emma', 'Collins', '5551112233', 'emma.collins@mail.com', '2002-07-15', 0, 1, 3);
 
-INSERT INTO Client (name, lastName, phone, email, birthDate, strike, isAccountActive) 
-VALUES ('Noah', 'Anderson', '5554445566', 'noah.anderson@mail.com', '1999-02-27', 0, 1);
+INSERT INTO Client (name, lastName, phone, email, birthDate, strike, isAccountActive, idUser) 
+VALUES ('Noah', 'Anderson', '5554445566', 'noah.anderson@mail.com', '1999-02-27', 0, 1, 4);
 
 -- Films
     
 -- Slasher
     
-INSERT INTO Film (name, genre, subgenre, director, premierYear, existingUnits, productionCompany, type) 
+INSERT INTO Film (name, genre, subgenre, director, premierYear, existingUnits, productionCompany, format) 
 VALUES ('Friday the 13th', 'Horror', 'Slasher', 'Sean S. Cunningham', 1980, 4, 'Paramount Pictures', 'VHS');
 
 -- Slasher
 
-INSERT INTO Film (name, genre, subgenre, director, premierYear, existingUnits, productionCompany, type) 
+INSERT INTO Film (name, genre, subgenre, director, premierYear, existingUnits, productionCompany, format) 
 VALUES ('A Nightmare on Elm Street', 'Horror', 'Slasher', 'Wes Craven', 1984, 3, 'New Line Cinema', 'VHS');
 
 -- RomCom
 
-INSERT INTO Film (name, genre, subgenre, director, premierYear, existingUnits, productionCompany, type) 
+INSERT INTO Film (name, genre, subgenre, director, premierYear, existingUnits, productionCompany, format) 
 VALUES ('When Harry Met Sally', 'Comedy', 'RomCom', 'Rob Reiner', 1989, 5, 'Columbia Pictures', 'DVD');
 
 -- Classic Monsters
 
-INSERT INTO Film (name, genre, subgenre, director, premierYear, existingUnits, productionCompany, type) 
+INSERT INTO Film (name, genre, subgenre, director, premierYear, existingUnits, productionCompany, format) 
 VALUES ('Frankenstein', 'Horror', 'Classic Monsters', 'James Whale', 1931, 2, 'Universal Pictures', 'VHS');
 
 -- Star Wars
 
-INSERT INTO Film (name, genre, subgenre, director, premierYear, existingUnits, productionCompany, type) 
+INSERT INTO Film (name, genre, subgenre, director, premierYear, existingUnits, productionCompany, format) 
 VALUES ('Star Wars: Episode III – Revenge of the Sith', 'Sci-Fi', 'Space Opera', 'George Lucas', 2005, 6, 'Lucasfilm Ltd.', 'DVD');
 
 -- Triggers
