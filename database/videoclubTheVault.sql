@@ -5,7 +5,9 @@ CREATE TABLE User (
     idUser INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(100) NOT NULL,
     password VARCHAR(100) NOT NULL,
-    role VARCHAR(50) NOT NULL
+    role VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    profilePicture VARCHAR(255) NULL
 );
 
 CREATE TABLE Film (
@@ -48,10 +50,9 @@ CREATE TABLE Promotion_includes_film (
 
 CREATE TABLE Client (
     idClient INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(45) NOT NULL,
+    firstName VARCHAR(45) NOT NULL,
     lastName VARCHAR(45) NOT NULL,
     phone VARCHAR(12),
-    email VARCHAR(100) NOT NULL,
     birthDate DATE NOT NULL,
     strike INT,
     isAccountActive TINYINT NOT NULL DEFAULT 1,
@@ -61,10 +62,9 @@ CREATE TABLE Client (
 
 CREATE TABLE Employee (
     idEmployee INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(45) NOT NULL,
+    firstName VARCHAR(45) NOT NULL,
     lastName VARCHAR(45) NOT NULL,
     phone VARCHAR(10) NOT NULL,
-    email VARCHAR(100) NOT NULL,
     birthDate DATE NOT NULL,
     role VARCHAR(45) NOT NULL,
     idUser INT NOT NULL,
@@ -124,36 +124,36 @@ CREATE TABLE Rental (
 
 -- Employees
 
-INSERT INTO User (username, password, role)
-VALUES ('abennett', '$2a$12$mVV52qOqXRBXk48Oomu2d.w5NpU4/qPzBb7Oy4ZW0agzHrdNavCYu', 'employee');
+INSERT INTO User (username, password, role, email)
+VALUES ('abennett', '$2a$12$mVV52qOqXRBXk48Oomu2d.w5NpU4/qPzBb7Oy4ZW0agzHrdNavCYu', 'employee', 'ashley.bennett@thevault.com');
 
-INSERT INTO User (username, password, role)
-VALUES ('lreed', '$2a$12$HD1.8jmXC8AGD0/M7Y3RfOtNZH.fg8oBfx.vp.2uyLpK6.ti7rPyS', 'employee');
+INSERT INTO User (username, password, role, email)
+VALUES ('lreed', '$2a$12$HD1.8jmXC8AGD0/M7Y3RfOtNZH.fg8oBfx.vp.2uyLpK6.ti7rPyS', 'employee', 'lucas.reed@thevault.com');
 
 -- Clients
 
-INSERT INTO User (username, password, role)
-VALUES ('ecollins', '$2a$12$Tjzd4fl8zCcRKQ0ikHhnc.gJh9eftNGiAaJrCe88BiZw5.xdANv5C', 'client');
+INSERT INTO User (username, password, role, email)
+VALUES ('ecollins', '$2a$12$Tjzd4fl8zCcRKQ0ikHhnc.gJh9eftNGiAaJrCe88BiZw5.xdANv5C', 'client', 'emma.collins@mail.com');
 
-INSERT INTO User (username, password, role)
-VALUES ('nanderson', '$2a$12$P0Gj5O/3ZVRE5te4dHinOOntKAUZj3CdLXiXRZ7ZJGDcd9CWC/Adq', 'client');
+INSERT INTO User (username, password, role, email)
+VALUES ('nanderson', '$2a$12$P0Gj5O/3ZVRE5te4dHinOOntKAUZj3CdLXiXRZ7ZJGDcd9CWC/Adq', 'client', 'noah.anderson@mail.com');
 
 
 -- Employee
     
-INSERT INTO Employee (name, lastName, phone, email, birthDate, role, idUser) 
-VALUES ('Ashley', 'Bennett', '5551234567', 'ashley.bennett@thevault.com', '1990-05-22', 'Manager', 1);
+INSERT INTO Employee (firstName, lastName, phone, birthDate, role, idUser) 
+VALUES ('Ashley', 'Bennett', '5551234567', '1990-05-22', 'Manager', 1);
 
-INSERT INTO Employee (name, lastName, phone, email, birthDate, role, idUser) 
-VALUES ('Lucas', 'Reed', '5559876543', 'lucas.reed@thevault.com', '1985-11-10', 'Clerk', 2);
+INSERT INTO Employee (firstName, lastName, phone, birthDate, role, idUser) 
+VALUES ('Lucas', 'Reed', '5559876543', '1985-11-10', 'Clerk', 2);
 
 -- Clients
     
-INSERT INTO Client (name, lastName, phone, email, birthDate, strike, isAccountActive, idUser) 
-VALUES ('Emma', 'Collins', '5551112233', 'emma.collins@mail.com', '2002-07-15', 0, 1, 3);
+INSERT INTO Client (firstName, lastName, phone, birthDate, strike, isAccountActive, idUser) 
+VALUES ('Emma', 'Collins', '5551112233', '2002-07-15', 0, 1, 3);
 
-INSERT INTO Client (name, lastName, phone, email, birthDate, strike, isAccountActive, idUser) 
-VALUES ('Noah', 'Anderson', '5554445566', 'noah.anderson@mail.com', '1999-02-27', 0, 1, 4);
+INSERT INTO Client (firstName, lastName, phone, birthDate, strike, isAccountActive, idUser) 
+VALUES ('Noah', 'Anderson', '5554445566', '1999-02-27', 0, 1, 4);
 
 -- Films
     
