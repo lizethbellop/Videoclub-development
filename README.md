@@ -62,3 +62,12 @@ Currently completed:
 - Develop frontend web interface for customers  
 - Integrate APIs for email and AI support  
 - Finalize employee-side JavaFX functionality
+
+## Acknowledgments
+
+Some icons used in this project were designed by the following authors and are available at [www.flaticon.com](https://www.flaticon.com):
+
+- [Mike Zuidgeest](https://www.flaticon.com/authors/mike-zuidgeest)
+- [Design View](https://www.flaticon.com/authors/design-view)
+
+Icons are used under the Flaticon Free License, which requires attribution.
