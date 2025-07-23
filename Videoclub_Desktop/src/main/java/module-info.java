@@ -1,6 +1,8 @@
 module org.thevault.videoclub_desktop {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.net.http;
+    requires com.fasterxml.jackson.databind;
 
 
     opens org.thevault.videoclub_desktop to javafx.fxml;

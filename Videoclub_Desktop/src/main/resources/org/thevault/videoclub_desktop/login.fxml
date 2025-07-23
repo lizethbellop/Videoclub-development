@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -31,8 +32,7 @@
                   <Image url="@images/password.png" />
                </image>
             </ImageView>
-            <TextField fx:id="lbUser" layoutX="117.0" layoutY="275.0" prefHeight="26.0" prefWidth="228.0" promptText="username or email" />
-            <TextField fx:id="lbPassword" layoutX="117.0" layoutY="338.0" prefHeight="26.0" prefWidth="228.0" promptText="password" />
+            <TextField fx:id="tfUser" layoutX="117.0" layoutY="275.0" prefHeight="26.0" prefWidth="228.0" promptText="username or email" />
             <Button layoutX="72.0" layoutY="381.0" mnemonicParsing="false" onAction="#onForgottenClicked" style="-fx-background-color: #1a1b1a;" text="Forgot my credentials" textFill="#34b2ac">
                <font>
                   <Font name="Bangla MN Bold" size="11.0" />
@@ -43,6 +43,9 @@
                   <Font name="Bangla MN" size="13.0" />
                </font>
             </Button>
+            <Label fx:id="lbUserError" layoutX="120.0" layoutY="308.0" textFill="RED" />
+            <Label fx:id="lbPasswordError" layoutX="120.0" layoutY="364.0" textFill="RED" />
+            <PasswordField fx:id="pfPassword" layoutX="117.0" layoutY="339.0" prefHeight="26.0" prefWidth="228.0" promptText="p4ssword" />
          </children>
       </AnchorPane>
       <Label layoutX="425.0" layoutY="706.0" text="© 2025 The Vault. All rights reserved." />
