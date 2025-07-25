@@ -49,7 +49,7 @@ public class LoginController implements Initializable {
         String password = pfPassword.getText();
 
         if(validateFields(username, password)){
-
+            validateCredentials(username, password);
         }
 
     }
@@ -64,7 +64,7 @@ public class LoginController implements Initializable {
             validFields = false;
         }
 
-        if(username.isEmpty()){
+        if(password.isEmpty()){
             lbPasswordError.setText("Password required");
             validFields = false;
         }
@@ -82,6 +82,7 @@ public class LoginController implements Initializable {
 
                     Platform.runLater(() -> {
                         System.out.println("Redirect to homepage");
+                        defineRoleandGo(obtainedUser.getRole());
                     });
                 })
                 .exceptionally( throwable -> {
