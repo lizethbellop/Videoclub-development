@@ -4,13 +4,20 @@ package org.thevault.videoclub_desktop.controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import org.thevault.videoclub_desktop.exception.ExceptionHandler;
 import org.thevault.videoclub_desktop.model.UserDTO;
 import org.thevault.videoclub_desktop.service.login.ApiServiceLogin;
+import org.thevault.videoclub_desktop.session.SessionManager;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -68,18 +75,56 @@ public class LoginController implements Initializable {
 
     private void validateCredentials(String username, String password){
         apiServiceLogin.login(username, password)
-                .thenAccept(obtainedUser -> {
-                    System.out.println("Login successful");
+                .thenAccept(user -> {
+                    this.obtainedUser = user;
+                    System.out.println("Login successful: " + user.getUsername());
+                    SessionManager.getInstance().setLoggedUser(obtainedUser);
 
                     Platform.runLater(() -> {
-                        System.out.println("Welcome!");
+                        System.out.println("Redirect to homepage");
                     });
+                })
+                .exceptionally( throwable -> {
+                    Platform.runLater(() -> ExceptionHandler.handleLoginExceptions(throwable));
+                    return null;
                 });
-                //.exceptionally()
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         apiServiceLogin = new ApiServiceLogin();
+    }
+
+    private void defineRoleandGo(String role){
+        String fxmlPath = "";
+
+        switch (role){
+            case "employee":
+                fxmlPath = "/employeeHomepage.fxml";
+                break;
+
+            case "client":
+                fxmlPath = "/clientHomepage.fxml";
+                break;
+        }
+
+        if(!fxmlPath.isEmpty()){
+            goToHomepage(fxmlPath);
+        }
+    }
+
+    private void goToHomepage(String fxmlPath){
+        try{
+            Stage baseStage = (Stage) tfUser.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent view = loader.load();
+
+            Scene homepageScene = new Scene(view);
+            baseStage.setScene(homepageScene);
+            baseStage.setTitle("Home");
+            baseStage.show();
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
     }
 }

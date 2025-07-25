@@ -11,6 +11,9 @@ public class ExceptionHandler {
         } else if(throwable instanceof ServerErrorException){
             ServerErrorException serverError = (ServerErrorException) throwable;
             WindowUtils.showSimpleAlert(Alert.AlertType.ERROR, "Server error", serverError.getMessage());
+        } else if (throwable instanceof ValidationException) {
+            ValidationException validationException = (ValidationException) throwable;
+            WindowUtils.showSimpleAlert(Alert.AlertType.ERROR, "Oops! There are some problems with the information given", validationException.getMessage());
         } else{
             WindowUtils.showSimpleAlert(Alert.AlertType.ERROR, "Unexpected error", "An unexpected error occurred, try again later");
         }
