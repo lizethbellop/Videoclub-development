@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
@@ -16,9 +17,11 @@ import org.thevault.videoclub_desktop.exception.ExceptionHandler;
 import org.thevault.videoclub_desktop.model.UserDTO;
 import org.thevault.videoclub_desktop.service.login.ApiServiceLogin;
 import org.thevault.videoclub_desktop.session.SessionManager;
+import org.thevault.videoclub_desktop.utils.WindowUtils;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -37,6 +40,13 @@ public class LoginController implements Initializable {
 
     private ApiServiceLogin apiServiceLogin;
     private UserDTO obtainedUser;
+
+
+    private static final String FXML_BASE_PATH = "/org/thevault/videoclub_desktop/";
+
+
+    private static final String EMPLOYEE_FXML = "employeeHomepage.fxml";
+    private static final String CLIENT_FXML = "clientHomepage.fxml";
 
     @FXML
     void onForgottenClicked(ActionEvent event) {
@@ -82,7 +92,8 @@ public class LoginController implements Initializable {
 
                     Platform.runLater(() -> {
                         System.out.println("Redirect to homepage");
-                        defineRoleandGo(obtainedUser.getRole());
+                        WindowUtils.showSimpleAlert(Alert.AlertType.INFORMATION, "Authentication completed", "Welcome!");
+                        defineRoleandGo(obtainedUser.getUserType().toString());
                     });
                 })
                 .exceptionally( throwable -> {
@@ -96,22 +107,27 @@ public class LoginController implements Initializable {
         apiServiceLogin = new ApiServiceLogin();
     }
 
-    private void defineRoleandGo(String role){
-        String fxmlPath = "";
+    private void defineRoleandGo(String userType){
+        String fxmlFile = "";
 
-        switch (role){
+        String normalizedUserType = userType.toLowerCase(Locale.ROOT);
+
+        switch (normalizedUserType){
             case "employee":
-                fxmlPath = "/employeeHomepage.fxml";
+                fxmlFile = EMPLOYEE_FXML;
                 break;
 
             case "client":
-                fxmlPath = "/clientHomepage.fxml";
+                fxmlFile = CLIENT_FXML;
                 break;
+
+            default:
+                System.err.println("Unknown userType: " + userType);
+                return;
         }
 
-        if(!fxmlPath.isEmpty()){
-            goToHomepage(fxmlPath);
-        }
+        String fullPath = FXML_BASE_PATH + fxmlFile;
+        goToHomepage(fullPath);
     }
 
     private void goToHomepage(String fxmlPath){
@@ -126,6 +142,7 @@ public class LoginController implements Initializable {
             baseStage.show();
         }catch(IOException ex){
             ex.printStackTrace();
+            WindowUtils.showSimpleAlert(Alert.AlertType.ERROR, "Error with the interface", "We couldn't upload the homepage");
         }
     }
 }

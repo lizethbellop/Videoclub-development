@@ -1,8 +1,10 @@
 package org.thevault.videoclub_desktop.service.login;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.thevault.videoclub_desktop.exception.IncorrectCredentialsException;
 import org.thevault.videoclub_desktop.exception.ServerErrorException;
 import org.thevault.videoclub_desktop.exception.ValidationException;
@@ -21,6 +23,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.time.Duration;
+import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class ApiServiceLogin {
@@ -33,6 +37,8 @@ public class ApiServiceLogin {
                 .connectTimeout(Duration.ofSeconds(30))
                 .build();
         this.objectMapper = new ObjectMapper();
+        this.objectMapper.registerModule(new JavaTimeModule());
+        this.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
     public CompletableFuture<UserDTO> login(String user, String password){
@@ -58,8 +64,6 @@ public class ApiServiceLogin {
         int status = response.statusCode();
         String body = response.body();
 
-        System.out.println("Respuesta recibida - Status: " + status);
-        System.out.println("Body: " + body);
 
         try{
             return switch (status){
@@ -87,8 +91,13 @@ public class ApiServiceLogin {
 
     private ValidationException parseInvalidInformation(String body) throws JsonProcessingException{
         ValidationErrorResponse errorResponse = objectMapper.readValue(body, ValidationErrorResponse.class);
-        return new ValidationException(String.format("Warning you got: %s \n You can see it in more " +
-                "detail here: \n %s", errorResponse.getSummary(), errorResponse.getFieldErrors()));
+        Map<String, String> fieldErrors = errorResponse.getFieldErrors();
+        StringBuilder sb = new StringBuilder("Validation failed:\n");
+
+        fieldErrors.forEach((field, message) -> {
+            sb.append("- ").append(field.toUpperCase(Locale.ROOT)).append(":\n").append(message).append("\n");
+        });
+        return new ValidationException(sb.toString());
     }
 
     private RuntimeException parseGenericError(String body, int status) throws JsonProcessingException{
