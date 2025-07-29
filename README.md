@@ -69,5 +69,6 @@ Some icons used in this project were designed by the following authors and are a
 
 - [Mike Zuidgeest](https://www.flaticon.com/authors/mike-zuidgeest)
 - [Design View](https://www.flaticon.com/authors/design-view)
+- [Google](https://www.flaticon.com/authors/google)
 
 Icons are used under the Flaticon Free License, which requires attribution.
