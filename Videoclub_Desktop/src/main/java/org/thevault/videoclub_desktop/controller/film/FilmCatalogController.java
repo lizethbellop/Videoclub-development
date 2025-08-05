@@ -1,9 +1,15 @@
 package org.thevault.videoclub_desktop.controller.film;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
+import org.thevault.videoclub_desktop.exception.ExceptionHandler;
+import org.thevault.videoclub_desktop.model.pojo.Film;
+import org.thevault.videoclub_desktop.service.film.ApiServiceFilm;
+
+import java.util.List;
 
 
 public class FilmCatalogController {
@@ -12,6 +18,8 @@ public class FilmCatalogController {
 
     @FXML
     private ImageView ivProfilePicture;
+
+    private ApiServiceFilm filmService;
 
     @FXML
     void onAdventureClicked(ActionEvent event) {
@@ -60,7 +68,7 @@ public class FilmCatalogController {
 
     @FXML
     void onReturnClicked(ActionEvent event) {
-
+        //TODO return to homepage
     }
 
     @FXML
@@ -76,5 +84,27 @@ public class FilmCatalogController {
     @FXML
     void onSuperheroClicked(ActionEvent event) {
 
+    }
+
+    private void loadAllFilms(){
+        filmService.getAllFilms()
+                .thenAccept(films -> {
+                    Platform.runLater(() -> {
+                        catalogContainer.getChildren().clear();
+                        films.forEach(this::createFilmButton);
+                    });
+                })
+                .exceptionally(throwable -> {
+                    Platform.runLater(() -> ExceptionHandler.handleCatalogExceptions(throwable));
+                    return null;
+                });
+    }
+
+    private void createFilmButton(Film film){
+        //TODO create buttons per film
+    }
+
+    private void loadPosterAsync(){
+        //TODO loadPosterFromCloudfare
     }
 }

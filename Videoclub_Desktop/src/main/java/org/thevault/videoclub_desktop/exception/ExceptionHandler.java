@@ -22,4 +22,18 @@ public class ExceptionHandler {
             WindowUtils.showSimpleAlert(Alert.AlertType.ERROR, "Unexpected error", "An unexpected error occurred, try again later");
         }
     }
+
+    public static void handleCatalogExceptions(Throwable throwable){
+        Throwable realCause = (throwable instanceof CompletionException && throwable.getCause() != null) ? throwable.getCause() : throwable;
+
+        if(realCause instanceof RuntimeException){
+            RuntimeException runtimeException = (RuntimeException) realCause;
+            WindowUtils.showSimpleAlert(Alert.AlertType.ERROR, "An error occurred", runtimeException.getMessage());
+        } else if (realCause instanceof ServerErrorException) {
+            ServerErrorException serverErrorException = (ServerErrorException) realCause;
+            WindowUtils.showSimpleAlert(Alert.AlertType.ERROR, "A server error occured", serverErrorException.getMessage());
+        }else {
+            WindowUtils.showSimpleAlert(Alert.AlertType.ERROR, "Unexpected error", "An unexpected error occurred, try again later");
+        }
+    }
 }

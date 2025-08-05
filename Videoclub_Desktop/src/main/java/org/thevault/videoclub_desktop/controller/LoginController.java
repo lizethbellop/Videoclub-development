@@ -46,11 +46,10 @@ public class LoginController implements Initializable {
 
 
     private static final String EMPLOYEE_FXML = "employeeHomepage.fxml";
-    private static final String CLIENT_FXML = "clientHomepage.fxml";
 
     @FXML
     void onForgottenClicked(ActionEvent event) {
-
+        /* TODO: Forgotten data behaviour */
     }
 
     @FXML
@@ -118,10 +117,11 @@ public class LoginController implements Initializable {
                 break;
 
             case "client":
-                fxmlFile = CLIENT_FXML;
-                break;
+                WindowUtils.showSimpleAlert(Alert.AlertType.ERROR, "Access denied", "Clients must access through the web portal");
+                return;
 
             default:
+                WindowUtils.showSimpleAlert(Alert.AlertType.ERROR, "Access denied", "Client couldn't be found");
                 System.err.println("Unknown userType: " + userType);
                 return;
         }
