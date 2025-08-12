@@ -107,4 +107,8 @@ public class FilmCatalogController {
     private void loadPosterAsync(){
         //TODO loadPosterFromCloudfare
     }
+
+    private void goToFilmDetails(){
+        //TODO FilmDetails
+    }
 }
